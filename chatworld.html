@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Anonymous Chat</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		$(document).ready(function() { 
+			var socket = io();
+
+			$('#submit-button').on('click', function(event) { 
+				socket.emit('chat message', $('#input-field').val());
+				$('#input-field').val('');
+				return false;
+				
+			});
+			socket.on('chat message', function(msg) {
+				var date = new Date();
+				$('#messages').append($('<li>').text(date + ": " + msg)); 
+
+			});
+
+
+		});
+	</script>
+</head>
+<body>
+	<h1>Chat World &#128506;</h1>
+	<ul id="messages">
+		<!-- message <li> elements to be appended here -->
+	</ul>
+	<form action="">
+		<input type="text" id="input-field" autocomplete="off" />
+		<button type="submit" id="submit-button">OK</button>
+	</form>
+</body>
+</html>
