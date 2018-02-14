@@ -1,3 +1,4 @@
+$node index.js
 {
   "name": "anonymous-chat",
   "version": "0.0.1",
